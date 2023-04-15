@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="/todo/create" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            {{ form.title }}
+        </div>
+        <div class="col">
+            <input type="submit" class="btn btn-primary" value="Save">
+        </div>
+    </div>
+</form>
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>TO-DO-LIST</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for todo in object_list %}
+        <tr>
+            <td>{{ todo.title }}</td>
+            <td style="text-align:right;">
+                <a href="{% url 'todo:update' todo.id %}" class="btn btn-success">Update</a>
+                <a href="{% url 'todo:delete' todo.id %}" class="btn btn-danger">Delete</a>
+                <a href="{% url 'todo:detail' todo.id %}" class="btn btn-info">Detail</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock  %}
